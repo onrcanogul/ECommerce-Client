@@ -1,0 +1,13 @@
+.admin-container {
+    width: 98.6%;
+    height: 60vh;
+    margin: 10px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px lightgray;
+}
+.menu{
+    width: 9%;
+    background-color: lightgrey;
+    color: black;
+}

@@ -1,0 +1,11 @@
+.adminMenu{
+    color: beige;
+    text-decoration: none;
+    cursor: pointer;
+}
+.list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

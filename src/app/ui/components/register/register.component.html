@@ -1,0 +1,29 @@
+<div class="registerDiv">
+    <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)">
+        <div class="mb-3">
+            <label for="nameSurname" class="form-label">Name Surname</label>
+            <input type="text" formControlName="nameSurname" class="form-control" id="nameSurname"  aria-describedby="emailHelp" [ngClass]="{'is-invalid' : submitted && component['nameSurname'].errors}">
+            <div id="emailHelp" *ngIf="submitted && component['nameSurname'].errors" class="form-text">Name Surname is required.</div>
+          </div>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" formControlName="username" class="form-control" id="username"  aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label  for="email" class="form-label">Email</label>
+            <input type="email" formControlName="email" class="form-control" id="email"  aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" formControlName="password" class="form-control" id="password">
+        </div>
+        <div class="mb-3">
+            <label for="passwordConfirm" class="form-label">Confirm Password</label>
+            <input type="password" formControlName="passwordConfirm" class="form-control" id="passwordConfirm">
+          </div>
+        
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+</div>
