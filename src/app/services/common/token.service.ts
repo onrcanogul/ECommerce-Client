@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
@@ -6,10 +7,34 @@ import { LocalStorageService } from 'ngx-webstorage';
 })
 export class TokenService {
 
-  constructor(private localStorageService:LocalStorageService) { }
-
-  get Token()
-  {
-    return localStorage.getItem('accessToken');
+  constructor(private jwtHelper:JwtHelperService) 
+  { 
+    
   }
+
+  
+  checkUserRole(): boolean{
+    debugger;
+   const token = localStorage.getItem('accessToken');
+   if(token && !this.jwtHelper.isTokenExpired(token))  {
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    const userRole = decodedToken['role'];
+    
+    
+    if(userRole == 'Admin')
+      return true
+    else 
+    return false
+   } else 
+      return false;
+  }
+
+  get isAdmin(): boolean {
+    return this.checkUserRole();
+  }
+ 
 }
+
+export let isAdmin: boolean;
+
+

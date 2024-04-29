@@ -30,6 +30,7 @@ export class UserAuthService {
     {
       console.log(token)
       localStorage.setItem('accessToken',token.accessToken);  
+      localStorage.setItem('refreshToken' , token.refreshToken)
       this.toastr.message("Successful Login " , "Successful", {messageType:ToastrMessageType.Success, position:ToastrPosition.TopRight} )
 
     }
@@ -43,14 +44,60 @@ export class UserAuthService {
       action:"googlelogin"
     },user)
 
-    
     let token : Token = await firstValueFrom(obs) as Token;
     debugger;
     if(token)
     {
         localStorage.setItem('accessToken' , token.accessToken)
+        localStorage.setItem('refreshToken' , token.refreshToken)
     }
     callback();
+  }
+
+
+  async refreshTokenLogin(refreshToken : string , callBack?:(state) => void)
+  { 
+    const obs :Observable<any|Token> = this.httpClientService.post({
+      controller:"auth",
+      action:"refreshTokenLogin"
+
+    },{refreshToken})
+
+    try{
+      const token : Token = await firstValueFrom(obs) as Token;
+
+      if(token) {
+      localStorage.setItem('accessToken', token.accessToken);  
+      localStorage.setItem('refreshToken', token.refreshToken);
+      }
+      callBack(token ? true : false);
+    }
+    catch{
+      callBack(false);
+    }   
+  }
+  async passwordReset(email: string, callBack?:() => void) {
+    const obs = this.httpClientService.post({
+      controller:"auth",
+      action:"password-reset"
+    },{email})
+
+    await firstValueFrom(obs);
+    callBack();
+
+  }
+
+  async verifyResetToken(resetToken: string, userId: string, callBack?:() => void) : Promise<boolean> {
+    const obs : Observable<any> = this.httpClientService.post({
+      controller:"auth",
+      action:"verify-reset-token"
+    },{
+      resetToken,userId
+    });
+
+    const state :boolean = await firstValueFrom(obs);
+    callBack();
+    return state;
   }
   
   }

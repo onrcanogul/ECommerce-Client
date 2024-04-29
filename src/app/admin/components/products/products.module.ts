@@ -18,11 +18,13 @@ import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dia
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
 import { DialogModule } from '../../../dialogs/dialog.module';
+import { DeleteDirectiveModule } from '../../../directives/admin/delete.directive.module';
 
 
 
 @NgModule({
-  declarations: [ProductsComponent, CreateComponent, ListComponent,DeleteDirective],
+  declarations: [ProductsComponent, CreateComponent, ListComponent]
+  ,
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -35,11 +37,12 @@ import { DialogModule } from '../../../dialogs/dialog.module';
     MatTableModule,
     MatPaginatorModule,
     DialogModule,
-    FileUploadModule
+    FileUploadModule,
+    DeleteDirectiveModule
     
     
   ]
 })
-export class ProductsModule extends BaseComponent {
+export class ProductsModule{
   
  }

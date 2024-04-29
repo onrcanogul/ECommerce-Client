@@ -9,12 +9,18 @@ import { BasketsModule } from './baskets/baskets.module';
 import { RegisterComponent } from './register/register.component';
 import { RegisterModule } from './register/register.module';
 import { LoginModule } from './login/login.module';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { PasswordResetModule } from './password-reset/password-reset.module';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { UpdatePasswordModule } from './update-password/update-password.module';
+import { CreateProductComponent } from './create-product/create-product.component';
+import { CreateProductModule } from './create-product/create-product.module';
+import { ListOrderModule } from './list-order/list-order.module';
 
 
 
 @NgModule({
   declarations: [
-  
   
   ],
   imports: [
@@ -23,7 +29,13 @@ import { LoginModule } from './login/login.module';
     HomeModule,
     BasketsModule,
     RegisterModule,
-    // LoginModule
+    PasswordResetModule,
+    UpdatePasswordModule,
+    CreateProductModule,
+    ListOrderModule
+  ],
+  exports:[
+    BasketsModule
   ]
 })
 export class ComponentsModule { }

@@ -5,7 +5,9 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { TokenService } from '../../services/common/token.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { spinnerType } from '../../base/base.component';
-import { _isAuthenticated } from '../../services/common/auth.service';
+import { AuthService, _isAuthenticated } from '../../services/common/auth.service';
+import { UserService } from '../../services/common/models/user.service';
+
 
 
 export const authGuard: CanActivateFn = (route, state) => {
@@ -13,6 +15,8 @@ export const authGuard: CanActivateFn = (route, state) => {
   const tokenService:TokenService = inject(TokenService)
   const router:Router = inject(Router)
   const spinner:NgxSpinnerService = inject(NgxSpinnerService)
+  const authService = inject(AuthService)
+  const userService:UserService = inject(UserService)
 
   spinner.show(spinnerType.BallClipRotatePulse)
   
@@ -26,8 +30,10 @@ export const authGuard: CanActivateFn = (route, state) => {
   // {
   //   expired = true
   // }
+  
+  authService.identityCheck();
 
-  if(!_isAuthenticated)
+  if(!authService.isAuthenticated)
   {
     spinner.hide(spinnerType.BallClipRotatePulse)
     router.navigate(["login"],{queryParams:{returnUrl : state.url}})

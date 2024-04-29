@@ -9,18 +9,20 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-import { tokenGetter } from './jwt-interceptor-helper';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { LoginComponent } from './ui/components/login/login.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DynamicLoadComponentDirective
   ],
   imports: [
     BrowserModule,
@@ -41,12 +43,7 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig,
     }),
     SocialLoginModule,
     GoogleSigninButtonModule 
-    // JwtModule.forRoot({
-    //   config : {
-    //     tokenGetter : () => localStorage.getItem('accessToken'), //header'a tokenı eklememize yardımcı
-    //     allowedDomains:["localhost:44382"],
-    //   }
-    // })
+    
   ],
   providers: [
     provideClientHydration(),
@@ -64,7 +61,10 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig,
         ],
         onError: err => console.log(err)
       } as SocialAuthServiceConfig
-    }
+    },
+    {provide:HTTP_INTERCEPTORS , useClass : HttpErrorHandlerInterceptorService , multi:true},
+    {provide:"azureStorage" , useValue:"https://miniecommercefiles.blob.core.windows.net"},
+    {provide:"baseSignalRUrl" , useValue :"https://localhost:44382/"}
   ],
   bootstrap: [AppComponent]
 })

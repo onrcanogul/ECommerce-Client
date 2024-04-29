@@ -1,0 +1,29 @@
+
+<div class="uiProducts">
+<div class="card" style="width: 18rem;" *ngFor="let product of products">
+    <img *ngIf="product.productImageFiles.length == 0" src="../../../../../assets/default-product.png" width="30px" height="200px" class="card-img-top" alt="">
+    <img *ngIf="product.productImageFiles.length > 0" src="{{azureStorage}}/{{product.path}}" width="30px" height="200px" class="card-img-top" alt="">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text">Price: {{product.price | currency:'₺'}} | Stock: {{product.stock}}</p>     
+      <a class="btn btn-success" style="background-color: orange; border: none;" (click)="addToBasket(product)">Add to Cart</a>
+    </div>
+</div>
+</div>
+<div class="paginationUiProducts">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination" >
+          <li class="page-item"><a class="page-link" style="color : darkgoldenrod">{{currentPageNo}} / {{totalPageCount}}</a></li>
+          <li class="page-item"><a  style="color : darkgoldenrod" class="page-link" routerLink="/products/{{currentPageNo - 1 <= 0 ? 1 : currentPageNo - 1}}">Previous</a></li>
+          
+          <li class="page-item" *ngFor="let pageNo of pageList;" routerLinkActive="active"><a style="color : darkgoldenrod" class="page-link"  routerLink="/products/{{pageNo}}">{{pageNo}}</a></li>
+          
+          <li class="page-item"><a style="color : darkgoldenrod" class="page-link" routerLink="/products/{{currentPageNo + 1 >= totalPageCount ? totalPageCount : currentPageNo + 1}}">Next</a></li>
+        </ul>
+      </nav>
+
+</div>
+
+
+
+

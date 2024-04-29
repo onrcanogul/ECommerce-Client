@@ -47,6 +47,7 @@ export class DeleteDirective {
          $(td.parentElement).fadeOut(1000, () => {
            this.callback.emit();
          });
+         debugger;
          this.httpClientService.delete({
            controller: this.controller
          }, this.id).subscribe(result => {

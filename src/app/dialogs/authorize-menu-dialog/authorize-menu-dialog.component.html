@@ -1,0 +1,9 @@
+<h2 mat-dialog-title> Assign A Role to {{data.name}} endpoint </h2>
+<mat-dialog-content>
+  <p></p>
+  <div matBadge="4" matBadgeOverlap="false" class="demo-section">If you want to assign a role click yes.</div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
+  <button mat-button (click)="onNoClick()">No</button>
+</mat-dialog-actions>

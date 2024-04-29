@@ -56,8 +56,16 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
         this.spinner.hide(spinnerType.BallClipRotatePulse)
         $(event.srcElement).parent().parent().fadeOut(2000);
       })
-        }})
+    }})
         
+    }
+
+    async showCase(imageId:string){
+      this.spinner.show(spinnerType.BallClipRotatePulse)
+      debugger;
+      await this.productService.ChangeShowcaseImage(imageId, this.data as string, () => {
+        this.spinner.hide(spinnerType.BallClipRotatePulse)
+      });
     }
 
 

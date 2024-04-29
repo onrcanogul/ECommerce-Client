@@ -1,0 +1,33 @@
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+  
+      
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"> <img src="../../../../../assets/edit.png" width="25px" height="25px"  style="cursor: pointer;" alt=""> </td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td [id]="element.id" controller="roles" mat-cell *matCellDef="let element" (callback)="getRoles()" appDelete></td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator 
+                   (page) = "pageChanged()"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>

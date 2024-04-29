@@ -1,0 +1,16 @@
+.uiProducts{
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    flex-wrap: wrap;
+    
+}
+.card {
+    margin: 5px;
+    width: 30%;
+    
+}
+.paginationUiProducts{
+    display: flex;
+    justify-content: center;
+}

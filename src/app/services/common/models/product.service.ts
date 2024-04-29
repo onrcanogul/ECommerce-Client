@@ -33,15 +33,16 @@ export class ProductService {
   }
 
 
-  async read(page:number=0, size:number=5,successCallBack?:() => void , errorCallBack?:(message:string) => void) : Promise<{totalCount:number; products:ListProduct[]}>{
-    const promiseData : Promise<{totalCount:number; products:ListProduct[]}> = firstValueFrom(this.httpClientService.get<{totalCount:number; products:ListProduct[]}>({controller:"products" , queryString:`page=${page}&size=${size}`}))
-
-    promiseData.then(d => successCallBack)
-    promiseData.catch((errorResponse:HttpErrorResponse) => {
-      errorCallBack(errorResponse.message);
+  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number; products: ListProduct[] }> {
+    const obs = this.httpClientService.get<{ totalCount: number; products: ListProduct[] }>({
+      controller: "products",
+      queryString: `page=${page}&size=${size}`
     })
-    return await promiseData;
+    
+    return await firstValueFrom(obs)
+
   }
+
   async delete(id:string)
   {
    const obs: Observable<any> = this.httpClientService.delete(
@@ -72,6 +73,30 @@ export class ProductService {
 
     await firstValueFrom(obs)
     successCallBack();
+  }
+
+  async ChangeShowcaseImage(imageId:string, productId:string, successCallback?:() => void) : Promise<void> {
+   const obs =  this.httpClientService.get({
+      controller:"products",
+      action:"ChangeShowcase",
+      queryString:`imageId=${imageId}&productId=${productId}`
+    });
+      await firstValueFrom(obs);
+      successCallback();
+  }
+
+  async getActiveUsersProducts(page:number = 0, size:number =5, successCallBack?:() => void, errorCallback?:() => void) : Promise<{totalCount:number; products:ListProduct[]}> {
+    const obs: Observable<{totalCount:number; products:ListProduct[]}> = this.httpClientService.get({
+      controller:"products",
+      action : "active-users-products",
+      queryString: `page=${page}&size=${size}`
+    });
+
+    const promiseData = firstValueFrom(obs);
+    promiseData.then(v => successCallBack());
+    promiseData.catch(v => errorCallback());
+
+    return await promiseData;
   }
 }
 
