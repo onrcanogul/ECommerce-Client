@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectProductImageDialogComponent } from '../../../dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { ListProduct } from '../../../contracts/list_product';
+import { EditProductDialogComponent } from '../../../dialogs/edit-product-dialog/edit-product-dialog.component';
 
 @Component({
   selector: 'app-list',
@@ -48,6 +49,17 @@ export class ListComponent extends BaseComponent implements OnInit {
       data:id,
       options:{
         width:"1400px"
+      }
+    })
+  }
+
+  editProduct(id: string) {
+    this.dialogService.openDialog({
+      componentType:EditProductDialogComponent,
+      data:id,
+      options:{
+        width:"1400px",
+        height : "64vh"
       }
     })
   }

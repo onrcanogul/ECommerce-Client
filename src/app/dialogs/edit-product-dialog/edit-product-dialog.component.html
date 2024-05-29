@@ -1,0 +1,32 @@
+<div style="display: flex; justify-content: center; align-items: center;height: 100vh; flex-direction: column; margin: 10px;">
+
+    <h2>Edit Product</h2>
+
+    <mat-form-field class="example-full-width" style="width: 50%;">
+        <mat-label>Name</mat-label >
+        <input matInput placeholder="Name" #txtName  >
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 50%;">
+        <mat-label>Price</mat-label>
+        <input type="number" matInput placeholder="Price" #txtPrice >
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 50%;">
+        <mat-label>Stock</mat-label>
+        <input matInput placeholder="Stock"  #txtStock >
+      </mat-form-field>
+<mat-selection-list style="width: 50%;" #categories #txtCategory>
+    @for (category of category.categories; track category) {
+      <mat-list-option value={{category.id}}>{{category.name}}</mat-list-option>
+    }
+  </mat-selection-list>
+  
+  <p>
+    Options selected: {{categories.selectedOptions.selected.length}}
+  </p>
+
+
+
+  <button mat-flat-button color="primary"  style="width: 60%; background-color: orange;" (click)="editProduct(data ,txtName.value, txtPrice.value, txtStock.value, txtCategory._value)">Update Product</button>
+</div>

@@ -1,10 +1,10 @@
 .products {
     width: 98.4%;
-    height: 50vh;
+    height: 100vh;
     margin: 10px;
-    border: 1px solid lightgray;
+
     border-radius: 10px;
-    box-shadow: 1px 1px 1px lightgray;
+
 }
 .create-product{
     width: 350px;

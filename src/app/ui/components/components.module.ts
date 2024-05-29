@@ -16,6 +16,7 @@ import { UpdatePasswordModule } from './update-password/update-password.module';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { CreateProductModule } from './create-product/create-product.module';
 import { ListOrderModule } from './list-order/list-order.module';
+import { CategoriesModule } from './categories/categories.module';
 
 
 
@@ -32,7 +33,8 @@ import { ListOrderModule } from './list-order/list-order.module';
     PasswordResetModule,
     UpdatePasswordModule,
     CreateProductModule,
-    ListOrderModule
+    ListOrderModule,
+    CategoriesModule
   ],
   exports:[
     BasketsModule

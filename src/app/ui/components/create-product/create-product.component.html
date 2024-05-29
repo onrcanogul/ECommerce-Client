@@ -10,15 +10,24 @@
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Stock</mat-label>
-        <input matInput class="create-product-input" type="number" value="0" #txtStock>
+        <input matInput class="create-product-input" type="number" value="0" #txtStock> 
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Main Category</mat-label>
+        <mat-select #txtSelect>
+          <mat-option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</mat-option>
+        </mat-select>
       </mat-form-field>
       <div class="buttons">
-        <button mat-flat-button color="primary" style="background-color: orange;" (click)="createProduct(txtName.value,txtPrice.value,txtStock.value)">Create Product</button>
+        <button mat-flat-button color="primary" style="background-color: orange;" (click)="createProduct(txtName.value,txtPrice.value,txtStock.value,txtSelect.value)">Create Product</button>
       </div>
+    </div>
+
+      
 
       <br> <br>
       
-    </div>
+  
     
     
       

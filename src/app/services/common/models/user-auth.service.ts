@@ -20,6 +20,7 @@ export class UserAuthService {
     
    }
    async login(user:Partial<Login_User> , callBack?:() => void){
+    debugger;
     const obs : Observable<any> = this.httpClientService.post<Login_User | Token>({
       controller:"auth",
       action:"login"

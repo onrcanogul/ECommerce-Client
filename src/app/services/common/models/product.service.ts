@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ListProduct } from '../../../contracts/list_product';
 import { Observable, firstValueFrom } from 'rxjs';
 import { ListProductImage} from '../../../contracts/list_product_image';
+import { UpdateProduct } from '../../../contracts/update-product';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +98,40 @@ export class ProductService {
     promiseData.catch(v => errorCallback());
 
     return await promiseData;
+  }
+
+
+  async getProductByCategory(page:number = 0, size:number = 5, categoryId: string, successCallback:() => void) : Promise<{totalCount: number; products: ListProduct[] }> {
+    const obs = this.httpClientService.get<{ totalCount: number; products: ListProduct[] }>({
+      controller : "products",
+      action : "get-product-by-category",
+      queryString : `page=${page}&size=${size}&categoryId=${categoryId}`
+    });
+    successCallback();
+    return await firstValueFrom(obs);
+  }
+
+  async getProductWithPriceFilter(page:number, size:number,max:number,min:number,categoryId:string,successCallBack?:() => void,) : Promise<{totalCount:number; products:ListProduct[]}>{
+    debugger;
+    const obs : Observable<{totalCount:number; products:ListProduct[]}> = this.httpClientService.get<{totalCount:number; products:ListProduct[]}>({
+      controller:"products",
+      action : "get-product-with-filter",
+      queryString:`page=${page}&size=${size}&max=${max}&min=${min}&categoryId=${categoryId}`
+    })
+    const promiseData = firstValueFrom(obs);
+    promiseData.catch(v => successCallBack())
+
+    return await promiseData;  
+  }
+
+  async updateProduct(updateProduct:Partial<UpdateProduct>) {
+    debugger;
+    const obs: Observable<UpdateProduct> = this.httpClientService.put({
+      controller : "products",
+      action : "update-product"
+    },updateProduct)
+    
+    await firstValueFrom(obs);
   }
 }
 

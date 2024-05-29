@@ -13,6 +13,7 @@ import { AuthorizeMenuComponent } from './authorize-menu/authorize-menu.componen
 import { AuthorizeMenuModule } from './authorize-menu/authorize-menu.module';
 import { RolesModule } from './roles/roles.module';
 import { UsersModule } from './users/users.module';
+import { CategoriesModule } from './categories/categories.module';
 
 
 
@@ -28,7 +29,8 @@ import { UsersModule } from './users/users.module';
     DashboardModule,
     AuthorizeMenuModule,
     UsersModule,
-    RolesModule
+    RolesModule,
+    CategoriesModule
   ]
 })
 export class ComponentsModule { }

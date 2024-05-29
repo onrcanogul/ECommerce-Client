@@ -14,14 +14,13 @@ export class TokenService {
 
   
   checkUserRole(): boolean{
-    debugger;
-   const token = localStorage.getItem('accessToken');
-   if(token && !this.jwtHelper.isTokenExpired(token))  {
+    const token = localStorage.getItem('accessToken');
+    if(token && !this.jwtHelper.isTokenExpired(token))  {
     const decodedToken = this.jwtHelper.decodeToken(token);
     const userRole = decodedToken['role'];
     
     
-    if(userRole == 'Admin')
+    if(userRole == 'admin')
       return true
     else 
     return false

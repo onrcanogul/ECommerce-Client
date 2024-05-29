@@ -12,6 +12,12 @@ import { FileUploadModule } from '../../../services/common/file-upload/file-uplo
 import { DeleteDirectiveModule } from '../../../directives/admin/delete.directive.module';
 import { RouterModule } from '@angular/router';
 import { ListComponent } from '../list-product/list.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+
 
 
 
@@ -29,6 +35,13 @@ import { ListComponent } from '../list-product/list.component';
     DialogModule,
     FileUploadModule,
     DeleteDirectiveModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatListModule,
+
+    
     RouterModule.forChild([
       {path : "", component:CreateProductComponent}
     ])

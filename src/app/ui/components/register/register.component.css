@@ -3,3 +3,9 @@
     justify-content: center;
     align-items: center;
 }
+a{
+    cursor: pointer;
+}
+button{
+    cursor: pointer;
+}

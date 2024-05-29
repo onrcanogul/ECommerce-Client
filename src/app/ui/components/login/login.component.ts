@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Login_User } from '../../../contracts/users/Login_User';
 import { UserService } from '../../../services/common/models/user.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../services/common/custom-toastr.service';
@@ -15,7 +15,7 @@ import { TokenService } from '../../../services/common/token.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent extends BaseComponent  {
+export class LoginComponent extends BaseComponent implements OnInit  {
   constructor( 
     private userAuthService:UserAuthService,
     private toastr : CustomToastrService,
@@ -44,6 +44,9 @@ export class LoginComponent extends BaseComponent  {
       }
       
     })
+  }
+  ngOnInit(): void {
+    this.showSpinner(spinnerType.BallClipRotatePulse)
   }
 
 

@@ -44,7 +44,7 @@ export class DeleteDirective {
        callback: () => {
          this.spinner.show(spinnerType.BallClipRotatePulse)
          const td: HTMLTableCellElement = this.element.nativeElement;
-         $(td.parentElement).fadeOut(1000, () => {
+         $(td.parentElement).fadeOut(500, () => {
            this.callback.emit();
          });
          debugger;

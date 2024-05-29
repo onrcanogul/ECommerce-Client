@@ -1,28 +1,99 @@
+<div class="row">
+  <div class="col-2" style="border: 1px solid lightgray; height: 100vh">
+    <div style="display: flex; justify-content: center; flex-direction: column;
+    align-items: center;">
 
-<div class="uiProducts">
-<div class="card" style="width: 18rem;" *ngFor="let product of products">
-    <img *ngIf="product.productImageFiles.length == 0" src="../../../../../assets/default-product.png" width="30px" height="200px" class="card-img-top" alt="">
-    <img *ngIf="product.productImageFiles.length > 0" src="{{azureStorage}}/{{product.path}}" width="30px" height="200px" class="card-img-top" alt="">
-    <div class="card-body">
-      <h5 class="card-title">{{product.name}}</h5>
-      <p class="card-text">Price: {{product.price | currency:'₺'}} | Stock: {{product.stock}}</p>     
-      <a class="btn btn-success" style="background-color: orange; border: none;" (click)="addToBasket(product)">Add to Cart</a>
+
+    
+  <a mat-fab extended routerLink="." style="background-color:darkorange; width: 70%; text-align: center; margin: 20px;"  (click)="openFilter()" *ngIf="!filterState" >
+  OPEN FILTER
+  </a>  
+  <a mat-fab extended routerLink="." style="background-color:darkorange; width: 70%; text-align: center; margin: 20px;"  (click)="openFilter()" *ngIf="filterState" >
+    CLOSE FILTER
+    </a>  
+    <div *ngIf="filterState">
+      
+      
+      <p style="text-align: center; font-size: 12px; color: orange; font-weight: bold;">If you want to filter, you have to fill both sides(Max-Min).</p>
+    <div class="col-12" style="display:flex; justify-content: center; align-items: center;" >
+      <mat-form-field>
+        <mat-label>Max</mat-label>
+        <input matInput type="number"  class="example-right-align"  placeholder="0" #txtMax required>
+        <span matTextPrefix>₺&nbsp;</span>
+      </mat-form-field>
     </div>
-</div>
-</div>
-<div class="paginationUiProducts">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination" >
-          <li class="page-item"><a class="page-link" style="color : darkgoldenrod">{{currentPageNo}} / {{totalPageCount}}</a></li>
-          <li class="page-item"><a  style="color : darkgoldenrod" class="page-link" routerLink="/products/{{currentPageNo - 1 <= 0 ? 1 : currentPageNo - 1}}">Previous</a></li>
-          
-          <li class="page-item" *ngFor="let pageNo of pageList;" routerLinkActive="active"><a style="color : darkgoldenrod" class="page-link"  routerLink="/products/{{pageNo}}">{{pageNo}}</a></li>
-          
-          <li class="page-item"><a style="color : darkgoldenrod" class="page-link" routerLink="/products/{{currentPageNo + 1 >= totalPageCount ? totalPageCount : currentPageNo + 1}}">Next</a></li>
-        </ul>
-      </nav>
 
+    <div class="col-12" style="display:flex; justify-content: center; align-items: center;" >
+      <mat-form-field >
+        <mat-label>Min</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0" #txtMin required>
+        <span matTextPrefix>₺&nbsp;</span>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap:15px; margin-bottom: 10px;" >
+      
+      <a mat-fab extended routerLink="." style="background-color:darkorange; width: 30%;" (click)="filter(txtMax.value,txtMin.value)">
+        Filter
+      </a>
+      <a mat-fab extended routerLink="." style="background-color: lightgray;" (click)="removeFilter()">
+        Remove Filter
+      </a>
+    </div>
+
+     
+
+    </div>
+
+   <div class="category-section col-12">
+    <h2 style="text-align: center;">Categories</h2>
+    <ul class="category-list">
+        <li *ngFor="let category of categories.categories" style="font-size: 20px;"><a [ngClass]="{ 'active': category.id === categoryId }" href="/products/{{category.id}}/1">{{category.name}}</a></li>
+
+    </ul>
 </div>
+
+
+ 
+  </div>
+
+  </div>
+
+  <div class="col-10">
+    <div *ngIf="categorySelected">
+      <h3></h3>
+    </div>
+
+    <div class="uiProducts">
+      <div class="card" style="width: 18rem;" *ngFor="let product of products">
+          <img *ngIf="product.productImageFiles.length == 0" src="../../../../../assets/default-product.png" width="30px" height="200px" class="card-img-top" alt="">
+          <img *ngIf="product.productImageFiles.length > 0" src="{{azureStorage}}/{{product.path}}" width="30px" height="200px" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">Price: {{product.price | currency:'₺'}} | Stock: {{product.stock}}</p>     
+            <a class="btn btn-success" style="background-color: orange; border: none;" (click)="addToBasket(product)">Add to Cart</a>
+          </div>
+      </div>
+      </div>
+      <div class="paginationUiProducts">
+          <nav aria-label="Page navigation example">
+              <ul class="pagination" >
+                <li class="page-item"><a class="page-link" style="color : darkgoldenrod">{{currentPageNo}} / {{totalPageCount}}</a></li>
+                <li class="page-item"><a  style="color : darkgoldenrod" class="page-link" routerLink="/products/{{currentPageNo - 1 <= 0 ? 1 : currentPageNo - 1}}">Previous</a></li>
+                
+                <li class="page-item" *ngFor="let pageNo of pageList;" routerLinkActive="active"><a style="color : darkgoldenrod" class="page-link"  routerLink="/products/{{pageNo}}">{{pageNo}}</a></li>
+                
+                <li class="page-item"><a style="color : darkgoldenrod" class="page-link" routerLink="/products/{{currentPageNo + 1 >= totalPageCount ? totalPageCount : currentPageNo + 1}}">Next</a></li>
+              </ul>
+            </nav>
+      
+      </div>
+
+
+
+  </div>
+</div>
+
 
 
 
